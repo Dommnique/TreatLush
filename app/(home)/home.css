@@ -1,0 +1,399 @@
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url(/assets/hero_section.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: var(--hero-heading);
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-content p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--light-grey);
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 1s;
+}
+
+.hero-content button {
+  padding: 15px 35px;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--sage-green);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 1.7s;
+}
+
+.hero-content button:hover {
+  background-color: #4f7a5a;
+  transform: translateY(-3px);
+}
+
+/* Bestseller section*/
+.bestseller-section {
+  background-color: var(--off-white);
+}
+.bestseller {
+  width: 100%;
+  max-width: 1300px;
+  margin: auto;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  align-items: center;
+  padding: 60px 0;
+}
+
+.bestseller-section h2 {
+  font-size: var(--section-heading);
+  font-weight: 700;
+  color: var(--dark-grey);
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  padding-top: 40px;
+}
+
+.product-card {
+  height: fit-content;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.product-card img {
+  width: 100%;
+}
+
+.product-card h3 {
+  font-size: var(--card-title);
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: var(--dark-grey);
+  font-family: "Poppins", sans-serif;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.product-card p {
+  color: #4a4a4a;
+  line-height: 1.5;
+}
+
+.product-card .price {
+  font-weight: 700;
+}
+
+.product-card button {
+  margin-top: 7px;
+  padding: 8px 0;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--sage-green);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #4f7a5a;
+  transform: translateY(3px);
+}
+
+.ratings {
+  display: flex;
+  color: #ffd700;
+  gap: 4px;
+  margin: 5px 0;
+}
+
+/* Why-choose-us section */
+.why-choose-us {
+  padding-bottom: 60px;
+  background-color: var(--cream-white);
+}
+
+.why-choose-us h2 {
+  font-size: var(--section-heading);
+  color: var(--dark-grey);
+  font-weight: 700;
+  text-align: center;
+  padding-top: 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+.why-choose-us .slogan {
+  color: var(--dark-grey);
+  font-weight: 500;
+  text-align: center;
+  font-size: 18px;
+  padding-bottom: 30px;
+  font-family: "Poppins", sans-serif;
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.benefit-card {
+  padding: 40px;
+  border-radius: 20px;
+  font-family: "Inter", sans-serif;
+  background-color: var(--white);
+  color: var(--paragraph-grey);
+  box-shadow: rgba(0, 0, 0, 0.8);
+  border-left: 3px solid #7bae75;
+  border-right: 3px solid #7bae75;
+  transition: all 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.benefit-card h3 {
+  color: #4f7a5a;
+  padding-bottom: 3px;
+}
+
+.benefit-card svg {
+  font-size: 4rem;
+  color: var(--sage-green);
+  margin-bottom: 20px;
+}
+
+/* Testimonial session */
+.main-testimonial {
+  background-color: var(--off-white);
+  padding-bottom: 60px;
+}
+.testimonial {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 4rem;
+  width: 90%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.testimonial-image {
+  margin-top: 120px;
+}
+
+.testimonial-image img {
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.testimonial-image img:hover {
+  transform: scale(1.04);
+}
+.testimonial-heading {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: var(--section-heading);
+  color: var(--dark-grey);
+  padding-top: 40px;
+  font-weight: 700;
+}
+
+.testimonial-cards {
+  margin-top: 40px;
+}
+
+.testimonial-card {
+  padding: 30px;
+  border-radius: 25px;
+  font-family: "Inter", sans-serif;
+  background-color: var(--white);
+  color: var(--paragraph-grey);
+  box-shadow: rgba(0, 0, 0, 0.2);
+  border-left: 3px solid #7bae75;
+  border-right: 3px solid #7bae75;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.middle {
+  background-color: var(--dark-green);
+  color: var(--white);
+  box-shadow: rgba(0, 0, 0, 0.2);
+  margin-left: 50px;
+}
+
+.testimonial-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.testimonial-card h3 {
+  text-align: right;
+}
+
+.testimonial-cards .rating {
+  color: #ffd700;
+  margin-bottom: 5px;
+}
+
+/* Media query */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+
+  nav ul {
+    font-size: 12px;
+    gap: 5px;
+    margin-right: 20px;
+  }
+
+  .bestseller {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonial {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-image {
+    margin-top: 50px;
+  }
+
+  .cta-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-bottom: 40px;
+  }
+
+  .cta-video {
+    height: 300px;
+    margin-left: 30px;
+    width: 90%;
+  }
+
+  .cta-words {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 576px) {
+  nav {
+    padding: 9px 5px;
+  }
+
+  h2 {
+    font-size: 25px;
+  }
+
+  .menu {
+    display: inline-block;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-content p {
+    font-size: 0.9rem;
+  }
+
+  .hero-content button {
+    padding: 12px 25px;
+  }
+
+  .logo a {
+    font-size: 22px;
+    margin-left: 10px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 700;
+  }
+
+  nav ul {
+    display: none;
+  }
+
+  .bestseller {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .benefits {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .main-cta-section h2 {
+    font-size: 1.8rem;
+  }
+
+  .main-cta-section p {
+    font-size: 14px;
+  }
+
+  .footer-center {
+    flex-direction: column;
+  }
+
+  .footer-section {
+    padding: 3rem 2rem;
+  }
+}

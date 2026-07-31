@@ -1,0 +1,363 @@
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-about {
+  position: relative;
+  background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+    url("/assets/herosection2.jpg");
+  min-height: 80vh;
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  backdrop-filter: blur(30px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay-about {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.hero-about-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  padding: 20px;
+}
+
+.hero-about-content h1 {
+  font-family: "Poppins", sans-serif;
+  font-size: 5rem;
+  line-height: 1.1;
+  letter-spacing: -2px;
+  font-weight: 800;
+  color: var(--white);
+  z-index: 2;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  animation: fadeInUp 1s ease forwards;
+}
+
+.hero-about-content span {
+  color: var(--sage-green);
+}
+
+.hero-about-content p {
+  font-family: "Inter", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.8;
+  color: var(--sage-green);
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 1s;
+}
+
+.hero-about-content .description {
+  font-size: 1rem;
+  color: var(--light-grey);
+  opacity: 0.2;
+  font-weight: 300;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+.hero-about-content hr {
+  opacity: 0.3;
+}
+
+.scroll {
+  position: absolute;
+  bottom: 40px;
+  color: #fff;
+  opacity: 0.8;
+  z-index: 2;
+  animation: bounce 2s infinite;
+}
+
+/* About Story section*/
+
+.main-about {
+  background-color: var(--cream-white);
+}
+
+.story-about {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  padding: 6rem 8%;
+  gap: 4rem;
+  animation: fadeUp 1s ease;
+}
+
+.owner img {
+  width: 100%;
+  border-radius: 50%;
+  margin-top: 70px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  transition: 0.4s;
+}
+
+.owner img:hover {
+  transform: scale(1.03);
+}
+
+.story {
+  max-width: 600px;
+  width: 100%;
+  line-height: 1.5;
+  margin-top: 20px;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+
+.story h2 {
+  font-size: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: var(--dark-grey);
+  margin-bottom: 10px;
+}
+
+.story .tagline {
+  font-style: italic;
+  color: var(--sage-green);
+}
+
+.story p {
+  font-size: var(--body);
+  color: var(--paragraph-grey);
+  font-weight: 500;
+  font-family: "Inter", sans-serif;
+  margin-bottom: 20px;
+  word-wrap: break-word;
+}
+
+.story span {
+  color: var(--sage-green);
+  font-weight: 700;
+}
+
+/* Values Section */
+.values-section {
+  padding: 4rem 8%;
+  background-color: var(--off-white);
+}
+
+.values-section h2 {
+  font-size: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: var(--dark-grey);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.values-section p {
+  font-family: "Inter", sans-serif;
+  font-size: var(--body);
+  color: var(--paragraph-grey);
+  margin-top: 2px;
+}
+
+.values-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.value-card {
+  padding: 30px 3rem;
+  border-radius: 20px;
+  min-height: 220px;
+  font-family: "Inter", sans-serif;
+  background-color: var(--white);
+  color: var(--paragraph-grey);
+  box-shadow: rgba(0, 0, 0, 0.8);
+  border-left: 3px solid #7bae75;
+  border-right: 3px solid #7bae75;
+  transition: all 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.value-card h3 {
+  color: #4f7a5a;
+  padding-bottom: 3px;
+}
+
+.value-card svg {
+  font-size: 4rem;
+  color: var(--sage-green);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Process Section */
+.process-section {
+  background-color: var(--cream-white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  padding: 4rem 0;
+}
+
+.process-section h2 {
+  font-size: 3rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  color: var(--dark-grey);
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.process-diagram {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-diagram .linked {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+.process-diagram .card {
+  display: flex;
+  flex-direction: column;
+}
+
+.process-diagram .detail {
+  text-align: center;
+  width: 122px;
+  margin-top: 12px;
+}
+
+.detail h3 {
+  font-family: "Poppins", sans-serif;
+  line-height: 1.1;
+  margin-bottom: 5px;
+  color: var(--dark-grey);
+}
+
+.detail p {
+  font-family: "Inter", sans-serif;
+  color: var(--paragraph-grey);
+  line-height: 1.1;
+}
+
+.process-diagram .step {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  background-color: var(--sage-green);
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--cream-white);
+  font-family: "Poppins", sans-serif;
+}
+
+.process-diagram .step:hover {
+  transform: scale(1.08);
+  transition: 0.3s ease;
+}
+
+.process-diagram .linker {
+  height: 2px;
+  width: 100px;
+  background-color: var(--dark-grey);
+  opacity: 0.6;
+}
+
+/* Media Query */
+@media (max-width: 768px) {
+  .story-about {
+    grid-template-columns: 1fr;
+  }
+
+  .values-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .value-card {
+    padding: 30px 2rem;
+  }
+
+  .process-diagram .card {
+    flex-direction: row;
+  }
+
+  .process-diagram .linked {
+    flex-direction: column;
+  }
+
+  .process-diagram .detail {
+    margin-left: 25px;
+  }
+
+  .process-diagram {
+    flex-direction: column;
+  }
+
+  .process-diagram .linker {
+    width: 2px;
+    height: 100px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-about-content h1 {
+    font-size: 2.2rem;
+  }
+
+  .story-about {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    padding: 0 22px;
+    padding-bottom: 20px;
+  }
+
+  .story h2 {
+    text-align: center;
+    font-size: 2.2rem;
+  }
+
+  .values-section h2 {
+    font-size: 2.2rem;
+  }
+
+  .process-section h2 {
+    font-size: 2.2rem;
+  }
+}
