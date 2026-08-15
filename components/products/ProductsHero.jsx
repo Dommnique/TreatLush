@@ -7,6 +7,19 @@ function ProductHero(props) {
   const theSearchItem = props.searchItems;
   const setTheSearchItem = props.setSearchItems;
   const theSearchProducts = props.SearchProductItems;
+  const ProductsArr = props.availableItems;
+  const theDisplayedItems = props.displayedItems;
+  const setTheDisplayedItems = props.setDisplayedItems;
+  const theActiveItems = props.activeItems;
+  const setTheActiveItems = props.setActiveItems;
+
+  const activated = function activateItems() {
+    const activatedItem =
+      theActiveItems === "All"
+        ? ProductsArr
+        : ProductsArr.filter((product) => product.category === theActiveItems);
+    setTheDisplayedItems(activatedItem);
+  };
 
   return (
     <div>
@@ -28,7 +41,6 @@ function ProductHero(props) {
               placeholder="Search products e.g granola, parfait ..."
               onChange={(e) => {
                 theSearchProducts(e.target.value);
-                console.log(theSearchItem);
               }}
               value={theSearchItem}
             />
@@ -37,7 +49,10 @@ function ProductHero(props) {
             ) : (
               <FaTimes
                 className="search-icon"
-                onClick={() => setTheSearchItem("")}
+                onClick={() => {
+                  setTheSearchItem("");
+                  activated();
+                }}
               />
             )}
           </div>

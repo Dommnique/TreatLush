@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { FaStar } from "react-icons/fa";
 
 function ProductCard(props) {
@@ -5,7 +7,9 @@ function ProductCard(props) {
 
   const Products = bestSellers.map((product) => (
     <div className="product-card" key={product.id}>
-      <img src={product.image} alt="Product Image" />
+      <Link href={`/productdetail/${product.id}`}>
+        <img src={product.image} alt="Product Image" />
+      </Link>
       <h3>{product.title}</h3>
       <p className="price">₦{product.price}</p>
       <div className="ratings">
@@ -13,7 +17,7 @@ function ProductCard(props) {
           <FaStar key={i} />
         ))}
       </div>
-      <p>{product.description}</p>
+      <p>{product.tagline}</p>
       <button>Add to cart</button>
     </div>
   ));

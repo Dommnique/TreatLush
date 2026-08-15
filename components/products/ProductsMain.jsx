@@ -3,6 +3,7 @@
 import "@/app/products/products.css";
 import { useState } from "react";
 import AllProducts from "@/components/products/AllProducts";
+import ErrorPage from "./ErrorPage";
 
 function ProductsMain(props) {
   const ProductsArr = props.availableItems;
@@ -10,12 +11,14 @@ function ProductsMain(props) {
   const setTheDisplayedItems = props.setDisplayedItems;
   const theActiveItems = props.activeItems;
   const setTheActiveItems = props.setActiveItems;
+  const setTheSearchItem = props.setSearchItems;
 
   const filtered = function filterItems(arr, query) {
     const filteredItem = arr.filter((product) =>
       product.category.includes(query)
     );
     setTheDisplayedItems(filteredItem);
+    console.log(filteredItem);
   };
 
   return (
@@ -63,10 +66,10 @@ function ProductsMain(props) {
           <div
             onClick={() => {
               filtered(ProductsArr, "Greek");
-              setTheActiveItems("Greek Yogurt");
+              setTheActiveItems("Greek");
             }}
             className={
-              theActiveItems === "Greek Yogurt"
+              theActiveItems === "Greek"
                 ? "active-category"
                 : "inactive-category"
             }
@@ -110,7 +113,16 @@ function ProductsMain(props) {
         </div>
 
         <div>
-          <AllProducts items={theDisplayedItems} />
+          {theDisplayedItems.length === 0 ? (
+            <ErrorPage
+              setItem={setTheDisplayedItems}
+              arrItem={ProductsArr}
+              activeItem={setTheActiveItems}
+              setSearchValue={setTheSearchItem}
+            />
+          ) : (
+            <AllProducts items={theDisplayedItems} />
+          )}
         </div>
       </section>
     </div>
