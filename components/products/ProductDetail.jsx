@@ -5,9 +5,12 @@ import "../../app/productdetail/[id]/productdetail.css";
 import { FaPlus, FaTimes, FaStar } from "react-icons/fa";
 import products from "../../data/products";
 import PageNotFound from "./PageNotFound";
+import { useContext } from "react";
+import { CartContext } from "@/context/CartContext";
 import Link from "next/link";
 
 function ProductDetail() {
+  const { addToCart } = useContext(CartContext);
   const [isDisplayedIng, setIsDisplayedIng] = useState(false);
   const [isDisplayedSto, setIsDisplayedSto] = useState(false);
   const [isDisplayedDel, setIsDisplayedDel] = useState(false);
@@ -74,7 +77,7 @@ function ProductDetail() {
 
         <div className="productdetail-subcon">
           <div className="product-container">
-            <div className="product-image">
+            <div className="product-img">
               <img src={product.image} alt="Product Image" />
             </div>
 
@@ -89,7 +92,7 @@ function ProductDetail() {
                 ))}
               </div>
               <div className="price-row">
-                <span className="price">₦{product.price}</span>
+                <span className="price">₦{product.price.toLocaleString()}</span>
                 <span className="quantity">{product.quantity}</span>
               </div>
               <p className="product-description">{product.description}</p>
@@ -118,7 +121,13 @@ function ProductDetail() {
                   </button>
                 </div>
 
-                <button className="addtocart-btn" onClick={() => showAdded()}>
+                <button
+                  className="addtocart-btn"
+                  onClick={() => {
+                    showAdded();
+                    addToCart(product);
+                  }}
+                >
                   Add To Cart
                 </button>
                 <button className="buynow-btn">Buy Now</button>
@@ -205,7 +214,7 @@ function ProductDetail() {
           <h2>You Might Also Like</h2>
           <div className="related-products">
             {recommendedProducts.map((product) => (
-              <div className="product-card">
+              <div key={product.id} className="product-card">
                 <Link href={`/productdetail/${product.id}`}>
                   <img src={product.image} alt="Product Image" />
                 </Link>

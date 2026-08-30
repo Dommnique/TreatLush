@@ -9,7 +9,7 @@ import "./home.css";
 
 function Homepage() {
   return (
-    <>
+    <div>
       <Navbar />
       <Hero />
       <Bestseller />
@@ -17,7 +17,7 @@ function Homepage() {
       <Testimonial />
       <CallToAction />
       <Footer />
-    </>
+    </div>
   );
 }
 

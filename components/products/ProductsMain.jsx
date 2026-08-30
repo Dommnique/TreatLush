@@ -49,7 +49,7 @@ function ProductsMain(props) {
           >
             Yogurt
           </div>
-          <di
+          <div
             onClick={() => {
               filtered(ProductsArr, "Granola");
               setTheActiveItems("Granola");
@@ -61,7 +61,7 @@ function ProductsMain(props) {
             }
           >
             Granola
-          </di>
+          </div>
 
           <div
             onClick={() => {

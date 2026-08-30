@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function CallToAction() {
   return (
     <>
@@ -11,7 +13,9 @@ function CallToAction() {
               From Greek yogurt to farfaits ang granola, TreatLush delivers
               doodness straight to your doorstep.
             </p>
-            <button>Order Now</button>
+            <Link href="/products">
+              <button>Order Now</button>
+            </Link>
           </div>
 
           <div className="cta-video">

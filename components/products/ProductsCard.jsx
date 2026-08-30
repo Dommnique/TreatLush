@@ -1,8 +1,12 @@
 import { FaStar } from "react-icons/fa";
+import "../../app/(home)/home.css";
 import Link from "next/link";
+import { useContext } from "react";
+import { CartContext } from "@/context/CartContext";
 
 function ProductsCard(props) {
   const FinalProducts = props.items;
+  const { addToCart } = useContext(CartContext);
 
   const products = FinalProducts.map((product) => (
     <div className="product-card" key={product.id}>
@@ -21,7 +25,7 @@ function ProductsCard(props) {
           ))}
         </div>
         <p>{product.tagline}</p>
-        <button>Add to cart</button>
+        <button onClick={() => addToCart(product)}>Add to cart</button>
       </div>
     </div>
   ));

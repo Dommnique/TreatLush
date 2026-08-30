@@ -9,6 +9,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 100px;
 }
 
 .overlay {
@@ -72,13 +73,10 @@
 }
 
 /* Bestseller section*/
-.bestseller-section {
-  background-color: var(--off-white);
-}
 .bestseller {
   width: 100%;
-  max-width: 1300px;
-  margin: auto;
+  max-width: 1240px;
+  margin: 0 auto;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -166,7 +164,7 @@
 /* Why-choose-us section */
 .why-choose-us {
   padding-bottom: 60px;
-  background-color: var(--cream-white);
+  background-color: #f9f7f1;
 }
 
 .why-choose-us h2 {

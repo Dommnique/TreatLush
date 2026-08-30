@@ -1,15 +1,22 @@
 "use client";
 
 import { HiMenu } from "react-icons/hi";
+import { LuShoppingBasket } from "react-icons/lu";
 import { FaTimes } from "react-icons/fa";
-import { use, useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
+import { CartContext } from "@/context/CartContext";
 
 function Navbar() {
+  const { cartItem } = useContext(CartContext);
   const [isOpen, setisOpen] = useState(false);
+  const totalItems = cartItem.reduce(
+    (total, item) => total + item.cartQuantity,
+    0
+  );
 
   return (
-    <>
+    <div>
       <header>
         <nav>
           <h1 className="logo">
@@ -24,15 +31,19 @@ function Navbar() {
               <Link href="/about">ABOUT</Link>
             </li>
             <li className="nav-links">
-              <a href="/products">PRODUCTS</a>
+              <Link href="/products">PRODUCTS</Link>
             </li>
             <li className="nav-links">
-              <a href="#contactus">CONTACT US</a>
-            </li>
-            <li className="nav-links">
-              <a href="#cart">CART</a>
+              <Link href="#contactus">CONTACT US</Link>
             </li>
           </ul>
+
+          <Link href="/cart">
+            <div className="cart-con">
+              <LuShoppingBasket className="cart-icon" />
+              <div className="cart-total">{totalItems}</div>
+            </div>
+          </Link>
 
           <div
             className="menu"
@@ -53,26 +64,26 @@ function Navbar() {
 
           <ul>
             <li className="nav-links">
-              <a href="#home">HOME</a>
+              <Link href="/">HOME</Link>
             </li>
             <li className="nav-links">
-              <a href="#about">ABOUT</a>
+              <Link href="/about">ABOUT</Link>
             </li>
             <li className="nav-links">
-              <a href="#products">PRODUCTS</a>
+              <Link href="/products">PRODUCTS</Link>
             </li>
             <li className="nav-links">
-              <a href="#contactus">CONTACT US</a>
+              <Link href="/contactus">CONTACT US</Link>
             </li>
             <li className="nav-links">
-              <a href="#cart">CART</a>
+              <Link href="/cart">CART</Link>
             </li>
           </ul>
         </div>
 
         <div className={isOpen ? "full-overlay show" : "full-overlay"}></div>
       </header>
-    </>
+    </div>
   );
 }
 

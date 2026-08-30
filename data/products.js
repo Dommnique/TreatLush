@@ -8,6 +8,7 @@ const products = [
     price: 5000,
     rating: 4,
     quantity: "500ml",
+    cartQuantity: 0,
     description:
       "A smooth and creamy yogurt drink blended with the naturally sweet taste of ripe bananas. Banana Swirl is a refreshing, satisfying treat that is perfect for breakfast, a midday pick-me-up, or whenever you need a little goodness in your day.",
     why: [
@@ -29,6 +30,7 @@ const products = [
     price: 8000,
     rating: 4,
     quantity: "250ml",
+    cartQuantity: 0,
     description:
       "Rich, creamy, and delightfully chocolatey, Coco Cloud is a smooth yogurt drink made for those moments when you want something indulgent without compromising on goodness.",
     why: [
@@ -50,6 +52,7 @@ const products = [
     price: 5000,
     rating: 4,
     quantity: "500ml",
+    cartQuantity: 0,
     description:
       "Our creamy Greek Yogurt is thick, satisfying, and packed with the rich texture you love. It is a wholesome option that can be enjoyed on its own or paired with your favorite toppings.",
     why: [
@@ -71,6 +74,7 @@ const products = [
     price: 5000,
     rating: 5,
     quantity: "500ml",
+    cartQuantity: 0,
     description:
       "A delightful combination of creamy yogurt, crunchy granola, and delicious toppings layered together to create a treat that is as beautiful as it is satisfying.",
     why: [
@@ -92,6 +96,7 @@ const products = [
     price: 8000,
     rating: 4,
     quantity: "500ml",
+    cartQuantity: 0,
     description:
       "Enjoy even more of the rich and creamy Coco Cloud experience. This generous 500ml serving is perfect for sharing or simply treating yourself to more chocolatey goodness.",
     why: [
@@ -113,6 +118,7 @@ const products = [
     price: 4000,
     rating: 5,
     quantity: "250ml",
+    cartQuantity: 0,
     description:
       "A smooth and creamy yogurt drink infused with the delicate sweetness of vanilla. Vanilla Whisper is simple, comforting, and delicious from the very first sip.",
     why: [
@@ -134,6 +140,7 @@ const products = [
     price: 4500,
     rating: 4,
     quantity: "250ml",
+    cartQuantity: 0,
     description:
       "A refreshing twist on the classic Zobo drink, made with hibiscus and natural fruity flavors. Bright, bold, and best enjoyed chilled.",
     why: [
@@ -155,6 +162,7 @@ const products = [
     price: 4500,
     rating: 4,
     quantity: "500ml",
+    cartQuantity: 0,
     description:
       "Our generous 500ml serving of Vanilla Whisper delivers the same smooth, creamy vanilla goodness in a size made for sharing or enjoying throughout the day.",
     why: [
