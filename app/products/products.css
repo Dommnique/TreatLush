@@ -153,8 +153,8 @@
 
 .bestseller {
   width: 100%;
-  max-width: 1300px;
-  margin: auto;
+  max-width: 1240px;
+  margin: 0 auto;
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -298,6 +298,10 @@
   .products .categories {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .bestseller {
+    grid-template-columns: 1fr;
   }
 }
 
