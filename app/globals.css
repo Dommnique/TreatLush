@@ -167,6 +167,7 @@ nav ul a:hover::after {
 }
 
 .side-bar {
+  padding-top: 70px;
   height: 100vh;
   width: 70%;
   background-color: var(--dark-green);
@@ -181,7 +182,7 @@ nav ul a:hover::after {
 
 .side-bar .icon {
   position: absolute;
-  top: 3%;
+  top: 11%;
   right: 10%;
   font-size: 1.5rem;
   cursor: pointer;
