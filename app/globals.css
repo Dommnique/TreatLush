@@ -59,7 +59,7 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
-  width: 95%;
+  width: 99%;
 }
 
 nav ul {
@@ -322,6 +322,7 @@ nav ul a:hover::after {
   color: rgba(255, 255, 255, 0.75);
   padding: 5rem 4rem;
   padding-bottom: 3rem;
+  margin-bottom: 0;
 }
 
 .footer-section h3 {
