@@ -6,34 +6,34 @@ import { useState, useContext } from "react";
 import { CartContext } from "@/context/CartContext";
 
 function CartBody() {
-      const { cartItem, clearCart, notification } = useContext(CartContext);
-      const [removedFromCart, setRemovedFromCart] = useState(false);
-      const totalItems = cartItem.reduce(
-        (total, item) => total + item.cartQuantity,
-        0
-      );
+  const { cartItem, clearCart, notification } = useContext(CartContext);
+  const [removedFromCart, setRemovedFromCart] = useState(false);
+  const totalItems = cartItem.reduce(
+    (total, item) => total + item.cartQuantity,
+    0
+  );
 
-      const totalPrice = cartItem.reduce(
-        (total, item) => total + item.cartQuantity * item.price,
-        0
-      );
+  const totalPrice = cartItem.reduce(
+    (total, item) => total + item.cartQuantity * item.price,
+    0
+  );
 
-      const deliveryPrice = 3000;
+  const deliveryPrice = 3000;
 
-      function closeRemoved() {
-        setRemovedFromCart(false);
-      }
+  function closeRemoved() {
+    setRemovedFromCart(false);
+  }
 
-      function showRemoved() {
-        setRemovedFromCart(true);
+  function showRemoved() {
+    setRemovedFromCart(true);
 
-        setTimeout(closeRemoved, 3000);
-      }
+    setTimeout(closeRemoved, 3000);
+  }
 
-      cartItem.map((item) => {
-        return item;
-      });
-      
+  cartItem.map((item) => {
+    return item;
+  });
+
   return (
     <div>
       <div className="cart-header">
@@ -83,9 +83,11 @@ function CartBody() {
               <span>₦{(totalPrice + deliveryPrice).toLocaleString()}</span>
             </div>
 
-            <button className="checkout-btn" id="checkoutBtn">
-              Proceed to Checkout →
-            </button>
+            <Link href="/checkout">
+              <button className="checkout-btn" id="checkoutBtn">
+                Proceed to Checkout →
+              </button>
+            </Link>
 
             <div className="secure-note">
               Secure checkout · Fresh delivery guaranteed

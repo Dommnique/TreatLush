@@ -59,7 +59,7 @@ nav {
   top: 0;
   left: 0;
   z-index: 1000;
-  width: 99%;
+  width: 96%;
 }
 
 nav ul {
@@ -421,6 +421,10 @@ nav ul a:hover::after {
 
   .hero-content p {
     font-size: 1rem;
+  }
+
+  nav {
+    width: 99%;
   }
 
   nav ul {
