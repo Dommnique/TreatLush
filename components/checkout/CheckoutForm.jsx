@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "@/context/CartContext";
 import { CheckoutSchema } from "./schema";
 
+
 const defaultErrors = {
   fullName: null,
   email: null,
@@ -40,7 +41,10 @@ function CheckoutForm() {
     0
   );
 
-  function handleSubmit() {  
+  async function handleSubmit(e) {  
+    e.preventDefault();
+
+    
     setErrors(defaultErrors);
     const result = CheckoutSchema.safeParse(data)
     if (!result.success) {
@@ -49,18 +53,48 @@ function CheckoutForm() {
         ...defaultErrors,
         ...result.error.flatten().fieldErrors
       })
-      console.log(result.error.flatten().fieldErrors);
+      //console.log(result.error.flatten().fieldErrors);
       return;
     }
 
-    console.log(result.data)
-    console.log(cartItem)
+    const response = await fetch("/api/paystack/initialize", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        customer: result.data,
+        cart: cartItem,
+        total: totalPrice + deliveryPrice,
+      }),
+    });
+
+    const resultFromApi = await response.json();
+
+console.log("Initialization HTTP status:", response.status);
+console.log("Paystack initialization response:", resultFromApi);
+
+if (
+  !response.ok ||
+  !resultFromApi.status ||
+  !resultFromApi.data?.authorization_url
+) {
+  console.error("Payment initialization failed:", resultFromApi.message);
+  alert(resultFromApi.message || "Unable to start payment.");
+  return;
+}
+
+console.log(
+  "Callback URL configured on server:",
+  process.env.NEXT_PUBLIC_SITE_URL
+);
+    window.location.href = resultFromApi.data.authorization_url;
   }
 
   return (
     <div>
       <div className="header-band">
-        <Link className="back-link" href="#cart">
+        <Link className="back-link" href="/cart">
           ← Back to Cart
         </Link>
         <div className="header-eyebrow">Checkout</div>
@@ -81,9 +115,9 @@ function CheckoutForm() {
         </div>
       </div>
 
-      <div className="checkout-layout">
-        <div className="checkout-form">
-          <form>
+      <form onSubmit={handleSubmit}>
+        <div className="checkout-layout">
+          <div className="checkout-form">
             <div className="form-card">
               <div className="header">
                 <span className="dot">1</span>
@@ -211,80 +245,91 @@ function CheckoutForm() {
                   <label>
                     Delivery Notes<span className="optional">(optional)</span>
                   </label>
-                  <textarea placeholder="e.g gate code, landmark, preferred time"></textarea>
+                  <textarea
+                    value={data.deliveryNote}
+                    onChange={(e) =>
+                      setData((prev) => ({
+                        ...prev,
+                        deliveryNote: e.target.value,
+                      }))
+                    }
+                    placeholder="e.g gate code, landmark, preferred time"
+                  ></textarea>
                 </div>
               </div>
             </div>
-          </form>
-        </div>
+          </div>
 
-        <div className="summary">
-          <h2>
-            Order Summary
-            <Link className="sum-link" href="/cart">
-              Edit Cart
-            </Link>
-          </h2>
-          <div className="mini-cartitems">
-            {cartItem.map((item) => (
-              <div key={item.id} className="mini-item-con">
-                <div className="mini-item">
-                  <img src={item.image} alt={item.title} />
-                  <div className="mi-info">
-                    <div className="mi-name">{item.title}</div>
-                    <div className="mi-qty">Qty {item.cartQuantity}</div>
-                  </div>
-                  <div className="mi-price">
-                    <strong>₦{item.price.toLocaleString()}</strong>
+          <div className="summary">
+            <h2>
+              Order Summary
+              <Link className="sum-link" href="/cart">
+                Edit Cart
+              </Link>
+            </h2>
+            <div className="mini-cartitems">
+              {cartItem.map((item) => (
+                <div key={item.id} className="mini-item-con">
+                  <div className="mini-item">
+                    <img src={item.image} alt={item.title} />
+                    <div className="mi-info">
+                      <div className="mi-name">{item.title}</div>
+                      <div className="mi-qty">Qty {item.cartQuantity}</div>
+                    </div>
+                    <div className="mi-price">
+                      <strong>₦{item.price.toLocaleString()}</strong>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          <div className="sum-row">
-            <span>
-              Subtotal (<span id="itemCount">{totalItems}</span> items)
-            </span>
-            <span className="val">₦{totalPrice.toLocaleString()}</span>
-          </div>
-          <div className="sum-row">
-            <span>Delivery</span>
-            <span className="val">₦{deliveryPrice.toLocaleString()}</span>
-          </div>
-          <div className="sum-row total">
-            <span>Total</span>
-            <span className="val">
-              <strong>₦{(totalPrice + deliveryPrice).toLocaleString()}</strong>
-            </span>
-          </div>
+            <div className="sum-row">
+              <span>
+                Subtotal (<span id="itemCount">{totalItems}</span> items)
+              </span>
+              <span className="val">₦{totalPrice.toLocaleString()}</span>
+            </div>
+            <div className="sum-row">
+              <span>Delivery</span>
+              <span className="val">₦{deliveryPrice.toLocaleString()}</span>
+            </div>
+            <div className="sum-row total">
+              <span>Total</span>
+              <span className="val">
+                <strong>
+                  ₦{(totalPrice + deliveryPrice).toLocaleString()}
+                </strong>
+              </span>
+            </div>
 
-          <button onClick={handleSubmit} className="pay-btn">
-            🔒 Pay Now
-            <span className="amount">
-              · ₦{(totalPrice + deliveryPrice).toLocaleString()}
-            </span>
-          </button>
+            <button type="submit" className="pay-btn">
+              🔒 Pay Now
+              <span className="amount">
+                · ₦{(totalPrice + deliveryPrice).toLocaleString()}
+              </span>
+            </button>
 
-          <div className="paystack-badge">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-              <rect width="24" height="24" rx="6" fill="#00C3F7"></rect>
-              <path
-                d="M6 12.5l4 4 8-8.5"
-                stroke="#0A2540"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-            </svg>
-            Secured by Paystack
-          </div>
-          <div className="secure-note">
-            You'll be redirected to Paystack's secure checkout to complete
-            payment.
+            <div className="paystack-badge">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <rect width="24" height="24" rx="6" fill="#00C3F7"></rect>
+                <path
+                  d="M6 12.5l4 4 8-8.5"
+                  stroke="#0A2540"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></path>
+              </svg>
+              Secured by Paystack
+            </div>
+            <div className="secure-note">
+              You'll be redirected to Paystack's secure checkout to complete
+              payment.
+            </div>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
