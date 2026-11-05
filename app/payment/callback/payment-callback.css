@@ -1,0 +1,297 @@
+/* ==========================================================================
+   TreatLush — Payment callback page
+   Fonts: expects "Archivo Black" and "Poppins" (already used across the site).
+   If you load them with next/font, point --pc-font-display / --pc-font-body
+   at those CSS variables instead.
+   ========================================================================== */
+
+.payment-callback {
+  --pc-cream: #f7f3ea;
+  --pc-line: #e4ddcb;
+  --pc-ink: #1c1c1a;
+  --pc-teal-deep: #1a2e30;
+  --pc-green: #5b8c6e;
+  --pc-green-dark: #3f6b52;
+
+  --pc-font-display: "Archivo Black", "Arial Black", sans-serif;
+  --pc-font-body: "Poppins", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* default tone (overridden per status below) */
+  --pc-tone: #3b7a80;
+  --pc-tone-ink: #28595e;
+  --pc-tone-soft: #e6f0f0;
+
+  min-height: 100vh;
+  padding: 48px 24px 88px;
+  background:
+    radial-gradient(60% 50% at 50% 0%, color-mix(in srgb, var(--pc-tone) 14%, transparent) 0%, transparent 70%),
+    var(--pc-cream);
+  color: var(--pc-ink);
+  font-family: var(--pc-font-body);
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+.payment-callback *,
+.payment-callback *::before,
+.payment-callback *::after { box-sizing: border-box; }
+
+/* ---------- Colour themes, one per status ---------- */
+.payment-callback[data-tone="teal"]  { --pc-tone: #3b7a80; --pc-tone-ink: #28595e; --pc-tone-soft: #e6f0f0; }
+.payment-callback[data-tone="green"] { --pc-tone: #3f8a5c; --pc-tone-ink: #2f6a45; --pc-tone-soft: #e5f2ea; }
+.payment-callback[data-tone="amber"] { --pc-tone: #c98a14; --pc-tone-ink: #8a5d08; --pc-tone-soft: #fbf0d7; }
+.payment-callback[data-tone="blue"]  { --pc-tone: #3d7ea6; --pc-tone-ink: #285d80; --pc-tone-soft: #e3eff7; }
+.payment-callback[data-tone="red"]   { --pc-tone: #c0483c; --pc-tone-ink: #922f26; --pc-tone-soft: #fbe9e6; }
+.payment-callback[data-tone="slate"] { --pc-tone: #5f6b6d; --pc-tone-ink: #434d4f; --pc-tone-soft: #eaeeee; }
+
+.pc-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ---------- Progress steps (matches cart/checkout) ---------- */
+.pc-steps {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.pc-step { display: flex; align-items: center; gap: 8px; opacity: 0.4; }
+.pc-step.is-done { opacity: 1; color: var(--pc-green-dark); }
+.pc-step.is-active { opacity: 1; color: var(--pc-ink); }
+.pc-step-dot {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--pc-line); color: var(--pc-ink);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 11px;
+}
+.pc-step.is-done .pc-step-dot { background: var(--pc-green-dark); color: #fff; }
+.pc-step.is-active .pc-step-dot { background: var(--pc-teal-deep); color: #fff; }
+.pc-step-sep { width: 30px; height: 1.5px; background: var(--pc-line); }
+
+/* ---------- Card ---------- */
+.pc-card {
+  background: #fff;
+  border: 1px solid var(--pc-line);
+  border-radius: 26px;
+  padding: 44px 40px 38px;
+  text-align: center;
+  box-shadow: 0 24px 60px -28px color-mix(in srgb, var(--pc-tone) 45%, transparent);
+  position: relative;
+  overflow: hidden;
+}
+/* thin coloured band along the top edge */
+.pc-card::before {
+  content: "";
+  position: absolute; left: 0; right: 0; top: 0; height: 5px;
+  background: var(--pc-tone);
+}
+
+/* ---------- Icon ---------- */
+.pc-icon-wrap {
+  position: relative;
+  width: 104px; height: 104px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  background: var(--pc-tone-soft);
+  color: var(--pc-tone);
+  display: flex; align-items: center; justify-content: center;
+  animation: pc-pop 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3) both;
+}
+.pc-icon-wrap::after {
+  content: "";
+  position: absolute; inset: -9px;
+  border-radius: 50%;
+  border: 2px solid var(--pc-tone);
+  opacity: 0.18;
+}
+.pc-icon-wrap.is-pulsing::after { animation: pc-pulse 1.8s ease-out infinite; }
+
+.pc-icon { width: 52px; height: 52px; display: block; }
+
+.pc-icon-check path {
+  stroke-dasharray: 44;
+  stroke-dashoffset: 44;
+  animation: pc-draw 0.5s 0.25s ease-out forwards;
+}
+.pc-icon-alert { animation: pc-shake 0.5s 0.2s ease-in-out both; }
+.pc-icon-hourglass { animation: pc-flip 3.2s ease-in-out infinite; transform-origin: center; }
+
+.pc-spinner {
+  width: 50px; height: 50px; border-radius: 50%;
+  border: 5px solid color-mix(in srgb, var(--pc-tone) 22%, transparent);
+  border-top-color: var(--pc-tone);
+  animation: pc-spin 0.9s linear infinite;
+}
+
+/* ---------- Text ---------- */
+.pc-eyebrow {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--pc-tone-soft);
+  color: var(--pc-tone-ink);
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.pc-title {
+  font-family: var(--pc-font-display);
+  font-weight: 400;
+  font-size: 28px; line-height: 1.12;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+}
+.pc-message {
+  font-size: 15px; line-height: 1.7;
+  margin: 0 auto;
+  max-width: 44ch;
+  opacity: 0.72;
+  font-weight: 300;
+}
+.pc-hint { margin: 18px 0 0; font-size: 12.5px; opacity: 0.5; }
+
+/* ---------- Callout ---------- */
+.pc-callout {
+  margin: 22px 0 0;
+  padding: 14px 18px;
+  border-radius: 14px;
+  background: var(--pc-tone-soft);
+  border: 1px solid color-mix(in srgb, var(--pc-tone) 30%, transparent);
+  color: var(--pc-tone-ink);
+  font-size: 13px; line-height: 1.6;
+  text-align: left;
+}
+.pc-callout strong { font-weight: 700; }
+
+/* ---------- Reference ---------- */
+.pc-ref {
+  margin: 24px 0 0;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 12px 12px 12px 18px;
+  border: 1.5px dashed var(--pc-line);
+  border-radius: 14px;
+  background: var(--pc-cream);
+  text-align: left;
+}
+.pc-ref-text { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.pc-ref-label {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; opacity: 0.5;
+}
+.pc-ref-value {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13.5px;
+  overflow-wrap: anywhere;
+}
+.pc-ref-copy {
+  flex-shrink: 0;
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 36px; padding: 0 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--pc-ink);
+  background: #fff; color: var(--pc-ink);
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.pc-ref-copy:hover { background: var(--pc-ink); color: #fff; }
+
+/* ---------- Success timeline ---------- */
+.pc-timeline {
+  list-style: none;
+  margin: 26px 0 0; padding: 22px 0 0;
+  border-top: 1px solid var(--pc-line);
+  display: flex; flex-direction: column; gap: 16px;
+  text-align: left;
+}
+.pc-timeline li { display: flex; gap: 14px; align-items: flex-start; }
+.pc-timeline-num {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--pc-tone-soft); color: var(--pc-tone-ink);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 700;
+}
+.pc-timeline-title { font-size: 14px; font-weight: 600; }
+.pc-timeline-text { font-size: 13px; opacity: 0.6; line-height: 1.5; margin-top: 1px; }
+
+/* ---------- Buttons ---------- */
+.pc-actions {
+  margin-top: 28px;
+  display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+}
+.pc-btn {
+  height: 50px; padding: 0 28px;
+  border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: inherit; font-size: 13px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  text-decoration: none; cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.15s;
+}
+.pc-btn:active { transform: scale(0.98); }
+.pc-btn-primary {
+  background: var(--pc-green); color: #fff; border: none;
+}
+.pc-btn-primary:hover { background: var(--pc-green-dark); }
+.pc-btn-outline {
+  background: transparent; color: var(--pc-ink);
+  border: 1.5px solid var(--pc-ink);
+}
+.pc-btn-outline:hover { background: var(--pc-ink); color: #fff; }
+
+.pc-support { margin: 22px 0 0; font-size: 12.5px; opacity: 0.6; }
+.pc-support a { color: var(--pc-green-dark); font-weight: 600; text-decoration: none; }
+.pc-support a:hover { text-decoration: underline; }
+
+/* ---------- Animations ---------- */
+@keyframes pc-spin { to { transform: rotate(360deg); } }
+@keyframes pc-pop {
+  from { transform: scale(0.6); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes pc-draw { to { stroke-dashoffset: 0; } }
+@keyframes pc-pulse {
+  0% { transform: scale(0.92); opacity: 0.35; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+@keyframes pc-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+@keyframes pc-flip {
+  0%, 55% { transform: rotate(0deg); }
+  80%, 100% { transform: rotate(180deg); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 560px) {
+  .payment-callback { padding: 28px 16px 64px; }
+  .pc-card { padding: 36px 22px 30px; border-radius: 22px; }
+  .pc-title { font-size: 22px; }
+  .pc-steps { gap: 6px; font-size: 10px; }
+  .pc-step-sep { width: 16px; }
+  .pc-actions .pc-btn { width: 100%; }
+  .pc-ref { flex-direction: column; align-items: stretch; padding: 14px; }
+  .pc-ref-copy { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .payment-callback *, .payment-callback *::before, .payment-callback *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+  .pc-icon-check path { stroke-dashoffset: 0; }
+}

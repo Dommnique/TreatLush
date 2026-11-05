@@ -92,7 +92,9 @@ function Bestseller() {
       <section className="bestseller-section">
         <h2>Best Sellers</h2>
         <div className="bestseller">
-          <ProductCard items={bestSellerProducts} />
+          <div className="bestseller-sub">
+            <ProductCard className="bestseller-card" items={bestSellerProducts} />
+          </div>
         </div>
       </section>
     </>

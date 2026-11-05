@@ -5,11 +5,13 @@ import ProductsHero from "@/components/products/ProductsHero";
 import ProductsMain from "@/components/products/ProductsMain";
 import Footer from "@/components/global/Footer";
 import products from "@/data/products";
+import { CartContext } from '@/context/CartContext';
 
 function Products() {
   const [displayedProducts, setDisplayedProducts] = useState(products);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchValue, setSearchValue] = useState("");
+
 
   function searchProducts(query) {
     setSearchValue(query);
@@ -45,6 +47,7 @@ function Products() {
         setActiveItems={setActiveCategory}
         searchItems={searchValue}
         setSearchItems={setSearchValue}
+
       />
       <Footer />
     </div>

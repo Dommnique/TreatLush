@@ -231,7 +231,7 @@ console.log(
                     }
                   >
                     <option>Select state</option>
-                    <option value="warri">Warri</option>
+                    <option value="delta">Delta</option>
                     <option value="lagos">Lagos</option>
                     <option value="fct">FCT</option>
                     <option value="Rivers">Rivers</option>

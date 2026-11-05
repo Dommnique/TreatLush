@@ -1,7 +1,8 @@
 "use client";
 
 import "@/app/products/products.css";
-import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import AllProducts from "@/components/products/AllProducts";
 import ErrorPage from "./ErrorPage";
 
@@ -13,34 +14,85 @@ function ProductsMain(props) {
   const setTheActiveItems = props.setActiveItems;
   const setTheSearchItem = props.setSearchItems;
 
-  const filtered = function filterItems(arr, query) {
-    const filteredItem = arr.filter((product) =>
-      product.category.includes(query)
-    );
-    setTheDisplayedItems(filteredItem);
-    console.log(filteredItem);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const categoryFromUrl = searchParams.get("category");
+
+  // Map displayed category names to the values used in product data.
+  const categoryMap = {
+    All: "All",
+    Yogurt: "Yogurt",
+    Granola: "Granola",
+    "Greek Yogurt": "Greek",
+    Parfait: "Parfait",
+    Zobo: "Zobo",
   };
+
+  // Filter products by category.
+  const filtered = (arr, query) => {
+    const filteredItems = arr.filter((product) =>
+      product.category.toLowerCase().includes(query.toLowerCase())
+    );
+
+    setTheDisplayedItems(filteredItems);
+  };
+
+  // Handle category selection and update the URL.
+  const handleCategoryClick = (category) => {
+    if (category === "All") {
+      setTheDisplayedItems(ProductsArr);
+      setTheActiveItems("All");
+      router.push("/products", { scroll: false });
+      return;
+    }
+
+    const categoryToFilter = categoryMap[category];
+
+    if (!categoryToFilter) return;
+
+    filtered(ProductsArr, categoryToFilter);
+    setTheActiveItems(category);
+
+    router.push(`/products?category=${encodeURIComponent(category)}`, {
+      scroll: false,
+    });
+  };
+
+  // Apply a category when the page is opened through a category URL.
+  useEffect(() => {
+    if (!categoryFromUrl) {
+      setTheDisplayedItems(ProductsArr);
+      setTheActiveItems("All");
+      return;
+    }
+
+    const categoryToFilter = categoryMap[categoryFromUrl];
+
+    if (categoryToFilter && categoryToFilter !== "All") {
+      filtered(ProductsArr, categoryToFilter);
+      setTheActiveItems(categoryFromUrl);
+    } else {
+      // Invalid category in the URL: display all products.
+      setTheDisplayedItems(ProductsArr);
+      setTheActiveItems("All");
+    }
+  }, [categoryFromUrl, ProductsArr]);
 
   return (
     <div>
       <section className="products">
         <div className="categories">
           <div
-            onClick={() => {
-              setTheDisplayedItems(ProductsArr);
-              setTheActiveItems("All");
-            }}
+            onClick={() => handleCategoryClick("All")}
             className={
               theActiveItems === "All" ? "active-category" : "inactive-category"
             }
           >
             All <span>{ProductsArr.length}</span>
           </div>
+
           <div
-            onClick={() => {
-              filtered(ProductsArr, "Yogurt");
-              setTheActiveItems("Yogurt");
-            }}
+            onClick={() => handleCategoryClick("Yogurt")}
             className={
               theActiveItems === "Yogurt"
                 ? "active-category"
@@ -49,11 +101,9 @@ function ProductsMain(props) {
           >
             Yogurt
           </div>
+
           <div
-            onClick={() => {
-              filtered(ProductsArr, "Granola");
-              setTheActiveItems("Granola");
-            }}
+            onClick={() => handleCategoryClick("Granola")}
             className={
               theActiveItems === "Granola"
                 ? "active-category"
@@ -64,12 +114,9 @@ function ProductsMain(props) {
           </div>
 
           <div
-            onClick={() => {
-              filtered(ProductsArr, "Greek");
-              setTheActiveItems("Greek");
-            }}
+            onClick={() => handleCategoryClick("Greek Yogurt")}
             className={
-              theActiveItems === "Greek"
+              theActiveItems === "Greek Yogurt"
                 ? "active-category"
                 : "inactive-category"
             }
@@ -78,10 +125,7 @@ function ProductsMain(props) {
           </div>
 
           <div
-            onClick={() => {
-              filtered(ProductsArr, "Parfait");
-              setTheActiveItems("Parfait");
-            }}
+            onClick={() => handleCategoryClick("Parfait")}
             className={
               theActiveItems === "Parfait"
                 ? "active-category"
@@ -92,10 +136,7 @@ function ProductsMain(props) {
           </div>
 
           <div
-            onClick={() => {
-              filtered(ProductsArr, "Zobo");
-              setTheActiveItems("Zobo");
-            }}
+            onClick={() => handleCategoryClick("Zobo")}
             className={
               theActiveItems === "Zobo"
                 ? "active-category"
@@ -108,7 +149,7 @@ function ProductsMain(props) {
 
         <div className="total-products">
           <p>
-            <span>{theDisplayedItems.length}</span>products
+            <span>{theDisplayedItems.length}</span> products
           </p>
         </div>
 
@@ -124,8 +165,10 @@ function ProductsMain(props) {
             <AllProducts items={theDisplayedItems} />
           )}
         </div>
+        
       </section>
     </div>
   );
 }
+
 export default ProductsMain;

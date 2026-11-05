@@ -34,11 +34,11 @@ function Navbar() {
               <Link href="/products">PRODUCTS</Link>
             </li>
             <li className="nav-links">
-              <Link href="#contactus">CONTACT US</Link>
+              <Link href="/contact-us">CONTACT US</Link>
             </li>
           </ul>
 
-          <Link href="/cart">
+          <Link href="/cart" className="cartion">
             <div className="cart-con">
               <LuShoppingBasket className="cart-icon" />
               <div className="cart-total">{totalItems}</div>
@@ -73,10 +73,15 @@ function Navbar() {
               <Link href="/products">PRODUCTS</Link>
             </li>
             <li className="nav-links">
-              <Link href="/contactus">CONTACT US</Link>
+              <Link href="/contact-us">CONTACT US</Link>
             </li>
             <li className="nav-links">
-              <Link href="/cart">CART</Link>
+              <Link href="/cart">
+                <div className="mini-cart-con">
+                  <span>CART</span>
+                  <span className="mini-cart-total">{totalItems}</span>
+                </div>
+              </Link>
             </li>
           </ul>
         </div>

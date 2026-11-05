@@ -1,46 +1,47 @@
 "use client";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useContext } from "react";
 import { useParams } from "next/navigation";
 import "../../app/productdetail/[id]/productdetail.css";
 import { FaPlus, FaTimes, FaStar } from "react-icons/fa";
 import products from "../../data/products";
 import PageNotFound from "./PageNotFound";
-import { useContext } from "react";
 import { CartContext } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 import Link from "next/link";
 
 function ProductDetail() {
   const { addToCart } = useContext(CartContext);
+  const { showToast } = useToast();
   const [isDisplayedIng, setIsDisplayedIng] = useState(false);
   const [isDisplayedSto, setIsDisplayedSto] = useState(false);
   const [isDisplayedDel, setIsDisplayedDel] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [addedToCart, setAddedToCart] = useState(false);
 
   const params = useParams();
   const productId = params.id;
-  //console.log(params.id);
 
   const product = products.find((item) => item.id === Number(params.id));
+
+  // Hooks must run on every render, so this useMemo sits ABOVE the
+  // "product not found" early return below.
+  const recommendedProducts = useMemo(() => {
+    const otherProducts = products.filter(
+      (item) => item.id !== Number(productId)
+    );
+
+    const shuffled = [...otherProducts];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled.slice(0, 3);
+  }, [productId]);
 
   if (!product) {
     return <PageNotFound />;
   }
-
-  const recommendedProducts = useMemo(() => {
-    const otherProducts = products.filter(
-      (product) => product.id !== Number(productId)
-    );
-
-    const shuttled = [...otherProducts];
-    for (let i = shuttled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-
-      [shuttled[i], shuttled[j]] = [shuttled[j], shuttled[i]];
-    }
-
-    return shuttled.slice(0, 3);
-  }, [products, productId]);
 
   function decreaseQuantity() {
     const decreasedQty = quantity - 1;
@@ -57,14 +58,11 @@ function ProductDetail() {
     setQuantity(increasedQty);
   }
 
-  function closeAdded() {
-    setAddedToCart(false);
-  }
-
-  function showAdded() {
-    setAddedToCart(true);
-
-    setTimeout(closeAdded, 3000);
+  // One handler for every "Add to cart" button on this page, so the toast
+  // always names the product that was actually added.
+  function handleAddToCart(item) {
+    addToCart(item);
+    showToast(`Added ${item.title} to Cart`);
   }
 
   return (
@@ -123,10 +121,7 @@ function ProductDetail() {
 
                 <button
                   className="addtocart-btn"
-                  onClick={() => {
-                    showAdded();
-                    addToCart(product);
-                  }}
+                  onClick={() => handleAddToCart(product)}
                 >
                   Add To Cart
                 </button>
@@ -213,30 +208,28 @@ function ProductDetail() {
         <div className="related">
           <h2>You Might Also Like</h2>
           <div className="related-products">
-            {recommendedProducts.map((product) => (
-              <div key={product.id} className="product-card">
-                <Link href={`/productdetail/${product.id}`}>
-                  <img src={product.image} alt="Product Image" />
+            {recommendedProducts.map((newproduct) => (
+              <div key={newproduct.id} className="product-card">
+                <Link href={`/productdetail/${newproduct.id}`}>
+                  <img src={newproduct.image} alt="Product Image" />
                 </Link>
 
-                <h3>{product.title}</h3>
-                <p className="price">₦{product.price}</p>
+                <h3>{newproduct.title}</h3>
+                <p className="price">₦{newproduct.price}</p>
                 <div className="card-rating ">
                   {" "}
-                  {[...Array(product.rating)].map((_rating, i) => (
+                  {[...Array(newproduct.rating)].map((_rating, i) => (
                     <FaStar key={i} />
                   ))}
                 </div>
-                <p>{product.tagline}</p>
+                <p>{newproduct.tagline}</p>
 
-                <button>Add to cart</button>
+                <button onClick={() => handleAddToCart(newproduct)}>
+                  Add to cart
+                </button>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className={addedToCart ? "toast show" : "toast"}>
-          Added {product.title} to Cart
         </div>
       </section>
     </div>

@@ -1,0 +1,34 @@
+/* Shared "added to cart" toast. Same look as your old .toast, but with
+   unique class names so it can't clash with the global .show / .toast rules. */
+.tl-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  z-index: 2000; /* above your fixed navbar (z-index 1000) */
+  width: max-content; /* stays on one line (wraps only past 90vw) */
+  max-width: 90vw;
+  padding: 12px 24px;
+  border-radius: 999px;
+  background-color: #1a2e30;
+  color: #f8f7f4;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  opacity: 0;
+  transform: translateX(-50%) translateY(20px);
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.tl-toast.is-visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tl-toast {
+    transition: none;
+  }
+}

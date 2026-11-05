@@ -20,11 +20,10 @@ function Testimonial() {
                 <FaStar />
               </div>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Deleniti esse minus illo aperiam ipsum consequatur aliquid
-                accusamus, corrupti, expedita atque at temporibus?
+                Ohh my love! I literally enjoyed it. it’s 10/10 and the
+                packaging too, it’s nice for real
               </p>
-              <h3>- Ada M.</h3>
+              <h3>- Favor</h3>
             </div>
 
             <div className="testimonial-card middle">
@@ -35,13 +34,8 @@ function Testimonial() {
                 <FaStar />
                 <FaStar />
               </div>
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Error
-                et tempore voluptatum facere consequatur unde eaque
-                reprehenderit consectetur, dolorum rerum tempora excepturi
-                cupiditate?
-              </p>
-              <h3>- James K.</h3>
+              <p>My Mom loved it! They didn't even allow me eat in peace</p>
+              <h3>- Judith</h3>
             </div>
 
             <div className="testimonial-card">
@@ -53,11 +47,10 @@ function Testimonial() {
                 <FaStar />
               </div>
               <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Voluptas nobis obcaecati illum, atque cum accusamus dolore natus
-                eos!
+                Your granola is so nice and different! I love how crunchy it
+                was. Definitely coming back for more.
               </p>
-              <h3>- Esther N.</h3>
+              <h3>- Franca</h3>
             </div>
           </div>
         </div>

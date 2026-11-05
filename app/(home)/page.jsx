@@ -8,6 +8,7 @@ import Testimonial from "@/components/home/Testimonial";
 import "./home.css";
 
 function Homepage() {
+
   return (
     <div>
       <Navbar />

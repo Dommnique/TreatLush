@@ -4,10 +4,17 @@ import Link from "next/link";
 import { useContext } from "react";
 import { FaStar } from "react-icons/fa";
 import { CartContext } from "@/context/CartContext";
+import { useToast } from "@/context/ToastContext";
 
 function ProductCard(props) {
   const bestSellers = props.items;
   const { addToCart } = useContext(CartContext);
+  const { showToast } = useToast();
+
+  function handleAddToCart(product) {
+    addToCart(product);
+    showToast(`Added ${product.title} to Cart`);
+  }
 
   const Products = bestSellers.map((product) => (
     <div className="product-card" key={product.id}>
@@ -22,7 +29,7 @@ function ProductCard(props) {
         ))}
       </div>
       <p>{product.tagline}</p>
-      <button onClick={() => addToCart(product)}>Add to cart</button>
+      <button onClick={() => handleAddToCart(product)}>Add to cart</button>
     </div>
   ));
 

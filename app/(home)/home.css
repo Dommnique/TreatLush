@@ -1,24 +1,27 @@
 .hero {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  background-image: url(/assets/hero_section.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 100px;
+    isolation: isolate;
+    background-color: #243f42;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100svh;
+    padding: 100px 20px 20px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-image {
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
 }
 
 .overlay {
   position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .hero-content {
@@ -29,6 +32,28 @@
   padding: 20px;
 }
 
+.hero-content .hero-cta {
+  display: inline-block;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 50px;
+  background-color: var(--sage-green);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  /*animation: fadeInUp 1s ease forwards;
+  animation-delay: 1.7s;*/
+}
+
+.hero-content .hero-cta:hover {
+  background-color: #4f7a5a;
+  transform: translateY(-3px);
+}
+
 .hero-content h1 {
   font-family: "Poppins", sans-serif;
   font-size: var(--hero-heading);
@@ -36,7 +61,7 @@
   color: var(--white);
   margin-bottom: 20px;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  animation: fadeInUp 1s ease forwards;
+  /*animation: fadeInUp 1s ease forwards;*/
 }
 
 .hero-content p {
@@ -48,11 +73,35 @@
   margin-bottom: 40px;
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
   opacity: 0;
-  animation: fadeInUp 1s ease forwards;
-  animation-delay: 1s;
+  /*animation: fadeInUp 1s ease forwards;
+  animation-delay: 1s;*/
 }
 
-.hero-content button {
+/* Keep hero text invisible until the background image loads */
+.hero-content h1,
+.hero-content p,
+.hero-content .hero-cta {
+  opacity: 0;
+}
+
+/* Start animations only after the image has loaded */
+/* Begin the animations shortly after the hero image loads */
+ .hero-content h1 {
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0s;
+}
+
+ .hero-content p {
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.15s;
+}
+
+.hero-content .hero-cta {
+  animation: fadeInUp 0.7s ease both;
+  animation-delay: 0.3s;
+}
+
+/*.hero-content button {
   padding: 15px 35px;
   border: none;
   border-radius: 50px;
@@ -70,10 +119,10 @@
 .hero-content button:hover {
   background-color: #4f7a5a;
   transform: translateY(-3px);
-}
+}*/
 
 /* Bestseller section*/
-.bestseller {
+.bestseller-sub {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
@@ -298,7 +347,7 @@
 }
 
 /* Media query */
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   .hero-content h1 {
     font-size: 3rem;
   }
@@ -307,13 +356,22 @@
     font-size: 1rem;
   }
 
-  nav ul {
-    font-size: 12px;
-    gap: 5px;
-    margin-right: 20px;
+  nav{
+    padding: 15px 16px;
+    width: 96%;
   }
 
-  .bestseller {
+  nav ul {
+        gap: 15px;
+        margin-right: 75px;
+        font-size: 12px;
+    }
+
+  .bestseller{
+    padding: 10px 35px;
+  }
+
+  .bestseller-sub {
     grid-template-columns: repeat(2, 1fr);
   }
 
@@ -344,7 +402,8 @@
 
 @media (max-width: 576px) {
   nav {
-    padding: 9px 5px;
+    padding: 3px 5px;
+    width: 99%;
   }
 
   h2 {
@@ -354,6 +413,13 @@
   .menu {
     display: inline-block;
   }
+
+  .hero {
+    min-height: 70svh;
+    width: 100%;
+    padding: 100px 0px 20px;
+    
+}
 
   .hero-content h1 {
     font-size: 2.2rem;
@@ -367,6 +433,12 @@
     padding: 12px 25px;
   }
 
+  .hero-content .hero-cta {
+    padding: 12px 25px;
+  }
+
+
+
   .logo a {
     font-size: 22px;
     margin-left: 10px;
@@ -378,8 +450,22 @@
     display: none;
   }
 
-  .bestseller {
+  .cartion{
+    display: none;
+  }
+
+  .bestseller{
+    padding: 30px 35px;
+  }
+
+  .bestseller-sub{
     grid-template-columns: repeat(1, 1fr);
+    padding: 5px 0;
+  }
+
+
+  .bestseller-sub .product-card{
+    margin-bottom: 25px;
   }
 
   .benefits {
@@ -394,6 +480,12 @@
   .main-cta-section p {
     font-size: 14px;
   }
+
+  .why-choose-us, .main-testimonial {
+    padding: 0 26px;
+    padding-bottom: 60px;
+}
+
 
   .footer-center {
     flex-direction: column;

@@ -17,7 +17,12 @@
 }
 
 nav {
-  padding: 0px 35px;
+  padding: 0px 1px;
+  width: 100%;
+}
+
+.cartion{
+  margin-right: 20px;
 }
 
 .Notfound-page .icon {
@@ -144,7 +149,7 @@ h1 {
 }
 
 /* Media Query */
-@media (max-width: 768px) {
+@media (max-width: 820px) {
   nav {
     padding: 0px 5px;
   }
@@ -172,5 +177,11 @@ h1 {
   .btn-primary,
   .btn-outline {
     font-size: 11px;
+  }
+}
+
+@media (max-width:567px) {
+  .cartion{
+    display: none;
   }
 }

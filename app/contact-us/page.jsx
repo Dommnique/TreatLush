@@ -1,9 +1,15 @@
+import ContactPage from "../../components/contact/ContactMain";
+import Footer from "../../components/global/Footer";
+import Navbar from "../../components/global/Navbar";
+
 function ContactUs() {
-  return (
+  return(
     <div>
-      <h1>Contact Us</h1>
+      <Navbar/>
+      <ContactPage/>
+      <Footer/>
     </div>
-  );
+  )
 }
 
 export default ContactUs;

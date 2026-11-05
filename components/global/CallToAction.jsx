@@ -10,8 +10,8 @@ function CallToAction() {
               Ready for your <span>TreatLush</span> Experience?
             </h2>
             <p>
-              From Greek yogurt to farfaits ang granola, TreatLush delivers
-              doodness straight to your doorstep.
+              From Greek yogurt to parfaits and granola, TreatLush delivers
+              goodness straight to your doorstep.
             </p>
             <Link href="/products">
               <button>Order Now</button>
