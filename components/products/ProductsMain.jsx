@@ -1,12 +1,12 @@
 "use client";
 
 import "@/app/products/products.css";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import AllProducts from "@/components/products/AllProducts";
 import ErrorPage from "./ErrorPage";
 
-function ProductsMain(props) {
+function ProductsContent(props) {
   const ProductsArr = props.availableItems;
   const theDisplayedItems = props.displayedItems;
   const setTheDisplayedItems = props.setDisplayedItems;
@@ -165,9 +165,16 @@ function ProductsMain(props) {
             <AllProducts items={theDisplayedItems} />
           )}
         </div>
-        
       </section>
     </div>
+  );
+}
+
+function ProductsMain(props) {
+  return (
+    <Suspense fallback={<div>Loading products...</div>}>
+      <ProductsContent {...props} />
+    </Suspense>
   );
 }
 
